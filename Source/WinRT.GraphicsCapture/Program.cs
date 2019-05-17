@@ -127,7 +127,7 @@ namespace WinRT.GraphicsCapture
 
                 // draw it
                 device.ImmediateContext.Draw(4, 0);
-                swapChain1.Present(0, PresentFlags.None, new PresentParameters());
+                swapChain1.Present(1, PresentFlags.None, new PresentParameters());
 
                 // ReSharper restore AccessToDisposedClosure
             });
