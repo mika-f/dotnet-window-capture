@@ -131,7 +131,7 @@ namespace WinRT.GraphicsCapture
                 // ReSharper restore AccessToDisposedClosure
             });
 
-            swapChain.Dispose();
+            renderView.Dispose();
             backBuffer.Dispose();
             swapChain.Dispose();
             device.Dispose();
