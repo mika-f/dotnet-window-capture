@@ -112,7 +112,7 @@ namespace WinRT.GraphicsCapture
                     device.ImmediateContext.Rasterizer.SetViewport(0, 0, form.ClientSize.Width, form.ClientSize.Height);
                     device.ImmediateContext.OutputMerger.SetTargets(renderView);
 
-                    isResized = true;
+                    isResized = false;
                 }
 
                 // clear view
