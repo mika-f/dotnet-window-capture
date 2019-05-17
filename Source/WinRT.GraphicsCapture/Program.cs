@@ -41,9 +41,10 @@ namespace WinRT.GraphicsCapture
                 Usage = Usage.RenderTargetOutput
             };
             Device.CreateWithSwapChain(DriverType.Hardware, DeviceCreationFlags.BgraSupport, swapChaiDescription, out var device, out var swapChain);
+            using var swapChain1 = swapChain.QueryInterface<SwapChain1>();
 
             // ignore all Windows events
-            using var factory = swapChain.GetParent<Factory>();
+            using var factory = swapChain1.GetParent<Factory>();
             factory.MakeWindowAssociation(form.Handle, WindowAssociationFlags.IgnoreAll);
 
             using var vertexShaderByteCode = ShaderBytecode.CompileFromFile("./Shader.fx", "VS", "vs_5_0");
@@ -82,7 +83,7 @@ namespace WinRT.GraphicsCapture
             device.ImmediateContext.PixelShader.Set(pixelShader);
 
             // create a first views
-            var backBuffer = Resource.FromSwapChain<Texture2D>(swapChain, 0);
+            var backBuffer = Resource.FromSwapChain<Texture2D>(swapChain1, 0);
             var renderView = new RenderTargetView(device, backBuffer);
 
             device.ImmediateContext.Rasterizer.SetViewport(0, 0, form.ClientSize.Width, form.ClientSize.Height);
@@ -104,8 +105,8 @@ namespace WinRT.GraphicsCapture
                     Utilities.Dispose(ref backBuffer);
                     Utilities.Dispose(ref renderView);
 
-                    swapChain.ResizeBuffers(swapChaiDescription.BufferCount, form.ClientSize.Width, form.ClientSize.Height, Format.Unknown, SwapChainFlags.None);
-                    backBuffer = Resource.FromSwapChain<Texture2D>(swapChain, 0);
+                    swapChain1.ResizeBuffers(swapChaiDescription.BufferCount, form.ClientSize.Width, form.ClientSize.Height, Format.Unknown, SwapChainFlags.None);
+                    backBuffer = Resource.FromSwapChain<Texture2D>(swapChain1, 0);
                     renderView = new RenderTargetView(device, backBuffer);
 
                     device.ImmediateContext.Rasterizer.SetViewport(0, 0, form.ClientSize.Width, form.ClientSize.Height);
@@ -126,7 +127,7 @@ namespace WinRT.GraphicsCapture
 
                 // draw it
                 device.ImmediateContext.Draw(4, 0);
-                swapChain.Present(0, PresentFlags.None);
+                swapChain1.Present(0, PresentFlags.None, new PresentParameters());
 
                 // ReSharper restore AccessToDisposedClosure
             });
