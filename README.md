@@ -25,7 +25,7 @@ Captures a window or desktop screen and renders it in WPF or DirectX.
 
 | Capture Method             | Window Capture | Desktop Capture | Outside of Desktop | HW Acceleration | DirectX Games |
 | -------------------------- | :------------: | :-------------: | :----------------: | :-------------: | :-----------: |
-| `Win32.DwmThumbnail`       |      Yes       |       No        |         No         |       Yes       |      Yes      |
+| `Win32.DwmThumbnail`       |      Yes       |       No        |        Yes         |       Yes       |      Yes      |
 | `WinRT.GraphicsCapture`    |      Yes       |       Yes       |        Yes         |       Yes       |      Yes      |
 
 
