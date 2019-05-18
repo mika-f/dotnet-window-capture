@@ -37,7 +37,7 @@ namespace Win32.Shared
             using var form = new RenderForm(_title);
 
             // create a Device and SwapChain
-            var swapChaiDescription = new SwapChainDescription
+            var swapChainDescription = new SwapChainDescription
             {
                 BufferCount = 2,
                 Flags = SwapChainFlags.None,
@@ -48,7 +48,7 @@ namespace Win32.Shared
                 SwapEffect = SwapEffect.Discard,
                 Usage = Usage.RenderTargetOutput
             };
-            Device.CreateWithSwapChain(DriverType.Hardware, DeviceCreationFlags.BgraSupport, swapChaiDescription, out var device, out var swapChain);
+            Device.CreateWithSwapChain(DriverType.Hardware, DeviceCreationFlags.BgraSupport, swapChainDescription, out var device, out var swapChain);
             using var swapChain1 = swapChain.QueryInterface<SwapChain1>();
 
             // ignore all Windows events
@@ -112,7 +112,7 @@ namespace Win32.Shared
                     Utilities.Dispose(ref backBuffer);
                     Utilities.Dispose(ref renderView);
 
-                    swapChain1.ResizeBuffers(swapChaiDescription.BufferCount, form.ClientSize.Width, form.ClientSize.Height, Format.Unknown, SwapChainFlags.None);
+                    swapChain1.ResizeBuffers(swapChainDescription.BufferCount, form.ClientSize.Width, form.ClientSize.Height, Format.Unknown, SwapChainFlags.None);
                     backBuffer = Resource.FromSwapChain<Texture2D>(swapChain1, 0);
                     renderView = new RenderTargetView(device, backBuffer);
 
