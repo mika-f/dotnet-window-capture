@@ -105,7 +105,7 @@ namespace Win32.Shared
             {
                 // ReSharper disable AccessToDisposedClosure
                 if (!_captureMethod.IsCapturing)
-                    _captureMethod.StartCapture(form.Handle, device);
+                    _captureMethod.StartCapture(form.Handle, device, factory);
 
                 if (isResized)
                 {

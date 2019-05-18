@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Win32.Shared", "Win32.Share
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Win32.DwmSharedSurface", "Win32.DwmSharedSurface\Win32.DwmSharedSurface.csproj", "{70C9B2CA-C253-41CB-87AD-AE18394D202F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Win32.DesktopDuplication", "Win32.DesktopDuplication\Win32.DesktopDuplication.csproj", "{674C59CA-34FD-41A3-8FE8-F2C8DA8801A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,14 @@ Global
 		{70C9B2CA-C253-41CB-87AD-AE18394D202F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{70C9B2CA-C253-41CB-87AD-AE18394D202F}.Release|x64.ActiveCfg = Release|Any CPU
 		{70C9B2CA-C253-41CB-87AD-AE18394D202F}.Release|x64.Build.0 = Release|Any CPU
+		{674C59CA-34FD-41A3-8FE8-F2C8DA8801A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{674C59CA-34FD-41A3-8FE8-F2C8DA8801A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{674C59CA-34FD-41A3-8FE8-F2C8DA8801A4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{674C59CA-34FD-41A3-8FE8-F2C8DA8801A4}.Debug|x64.Build.0 = Debug|Any CPU
+		{674C59CA-34FD-41A3-8FE8-F2C8DA8801A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{674C59CA-34FD-41A3-8FE8-F2C8DA8801A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{674C59CA-34FD-41A3-8FE8-F2C8DA8801A4}.Release|x64.ActiveCfg = Release|Any CPU
+		{674C59CA-34FD-41A3-8FE8-F2C8DA8801A4}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

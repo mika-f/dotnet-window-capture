@@ -34,7 +34,7 @@ namespace WinRT.GraphicsCapture
             StopCapture();
         }
 
-        public void StartCapture(IntPtr hWnd, Device device)
+        public void StartCapture(IntPtr hWnd, Device device, Factory factory)
         {
             var capturePicker = new GraphicsCapturePicker();
 

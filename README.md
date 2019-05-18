@@ -17,6 +17,7 @@ Captures a window or desktop screen and renders it in WPF or DirectX.
 
 | Project Name               | Minimal Windows Version | Render To | Platform |
 | -------------------------- | ----------------------- | --------- | -------- |
+| `Win32.DesktopDuplication` | Windows 8               | DirectX   | Win32    |
 | `Win32.DwmSharedSurface`   | Windows 7               | DirectX   | Win32    |
 | `Win32.DwmThumbnail`       | Windows 7               | WPF       | Win32    |
 | `WinRT.GraphicsCapture`    | Windows 10 1803         | DirectX   | WinRT    |
@@ -26,6 +27,7 @@ Captures a window or desktop screen and renders it in WPF or DirectX.
 
 | Capture Method             | Window Capture | Desktop Capture | Outside of Desktop | HW Acceleration | DirectX Games |
 | -------------------------- | :------------: | :-------------: | :----------------: | :-------------: | :-----------: |
+| `Win32.DesktopDuplication` |       No       |       Yes       |         No         |       Yes       |      Yes      |
 | `Win32.DwmSharedSurface`   |      Yes       |       No        |        Yes         |       No        |      Yes      |
 | `Win32.DwmThumbnail`       |      Yes       |       No        |        Yes         |       Yes       |      Yes      |
 | `WinRT.GraphicsCapture`    |      Yes       |       Yes       |        Yes         |       Yes       |      Yes      |
