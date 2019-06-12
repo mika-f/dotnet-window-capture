@@ -17,7 +17,7 @@ Captures a window or desktop screen and renders it in WPF or DirectX.
 
 | Project Name               | Minimal Windows Version | Render To | Platform |
 | -------------------------- | ----------------------- | --------- | -------- |
-| `Win32.BitBlt`             | Windows 95              | WPF       | Win32    |
+| `Win32.BitBlt`             | Windows 95              | DirectX   | Win32    |
 | `Win32.DesktopDuplication` | Windows 8               | DirectX   | Win32    |
 | `Win32.DwmSharedSurface`   | Windows 7               | DirectX   | Win32    |
 | `Win32.DwmThumbnail`       | Windows 7               | WPF       | Win32    |
