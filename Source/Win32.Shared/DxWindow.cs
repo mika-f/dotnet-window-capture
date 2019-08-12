@@ -101,10 +101,6 @@ namespace Win32.Shared
             var isResized = false;
             form.UserResized += (_, __) => isResized = true;
 
-            // reuse shader resource view
-            Texture2D texture2D = null;
-            ShaderResourceView shaderResourceView = null;
-
             RenderLoop.Run(form, () =>
             {
                 // ReSharper disable AccessToDisposedClosure
@@ -129,21 +125,12 @@ namespace Win32.Shared
                 // clear view
                 device.ImmediateContext.ClearRenderTargetView(renderView, new RawColor4(1.0f, 1.0f, 1.0f, 1.0f));
 
-                using var nextFrame = _captureMethod.TryGetNextFrameAsTexture2D(device);
-                if (nextFrame == null)
-                    return;
-
-                if (texture2D == null || texture2D.Description.Height != nextFrame.Description.Height || texture2D.Description.Width != nextFrame.Description.Width)
+                using var texture2d = _captureMethod.TryGetNextFrameAsTexture2D(device);
+                if (texture2d != null)
                 {
-                    Utilities.Dispose(ref texture2D);
-                    Utilities.Dispose(ref shaderResourceView);
-
-                    texture2D = new Texture2D(device, nextFrame.Description);
-                    shaderResourceView = new ShaderResourceView(device, texture2D);
+                    using var shaderResourceView = new ShaderResourceView(device, texture2d);
                     device.ImmediateContext.PixelShader.SetShaderResource(0, shaderResourceView);
                 }
-
-                device.ImmediateContext.CopyResource(nextFrame, texture2D);
 
                 // draw it
                 device.ImmediateContext.Draw(4, 0);
@@ -152,13 +139,9 @@ namespace Win32.Shared
                 // ReSharper restore AccessToDisposedClosure
             });
 
-            shaderResourceView?.Dispose();
-            texture2D?.Dispose();
             renderView.Dispose();
             backBuffer.Dispose();
             swapChain.Dispose();
-            device.ImmediateContext.ClearState();
-            device.ImmediateContext.Dispose();
             device.Dispose();
         }
     }
