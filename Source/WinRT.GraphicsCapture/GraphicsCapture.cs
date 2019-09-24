@@ -130,7 +130,7 @@ namespace WinRT.GraphicsCapture
         {
             var factory = WindowsRuntimeMarshal.GetActivationFactory(typeof(GraphicsCaptureItem));
             var interop = (IGraphicsCaptureItemInterop) factory;
-            var pointer = interop.CreateForWindow(hWnd, _graphicsCaptureItemIid);
+            var pointer = interop.CreateForWindow(hWnd, typeof(GraphicsCaptureItem).GetInterface("IGraphicsCaptureItem").GUID);
             var capture = Marshal.GetObjectForIUnknown(pointer) as GraphicsCaptureItem;
             Marshal.Release(pointer);
 
