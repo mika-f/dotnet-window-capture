@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 using Windows.Graphics.Capture;
 using Windows.Graphics.DirectX;
@@ -8,6 +9,7 @@ using Windows.Graphics.DirectX.Direct3D11;
 using SharpDX.Direct3D11;
 using SharpDX.DXGI;
 
+using Win32.Shared;
 using Win32.Shared.Interfaces;
 
 using WinRT.GraphicsCapture.Interop;
@@ -18,6 +20,7 @@ namespace WinRT.GraphicsCapture
 {
     internal class GraphicsCapture : ICaptureMethod
     {
+        private static readonly Guid _graphicsCaptureItemIid = new Guid("79C3F95B-31F7-4EC2-A464-632EF5D30760");
         private Direct3D11CaptureFramePool _captureFramePool;
         private GraphicsCaptureItem _captureItem;
         private GraphicsCaptureSession _captureSession;
@@ -36,14 +39,32 @@ namespace WinRT.GraphicsCapture
 
         public void StartCapture(IntPtr hWnd, Device device, Factory factory)
         {
+            #region GraphicsCapturePicker version
+
+            /*
             var capturePicker = new GraphicsCapturePicker();
 
             // ReSharper disable once PossibleInvalidCastException
             // ReSharper disable once SuspiciousTypeConversion.Global
-            var initializer = (IInitializeWithWindow) (object) capturePicker;
+            var initializer = (IInitializeWithWindow)(object)capturePicker;
             initializer.Initialize(hWnd);
 
             _captureItem = capturePicker.PickSingleItemAsync().AsTask().Result;
+            */
+
+            #endregion
+
+            #region Window Handle version
+
+            var capturePicker = new WindowPicker();
+            var captureHandle = capturePicker.PickCaptureTarget(hWnd);
+            if (captureHandle == IntPtr.Zero)
+                return;
+
+            _captureItem = CreateItemForWindow(captureHandle);
+
+            #endregion
+
             if (_captureItem == null)
                 return;
 
@@ -102,6 +123,18 @@ namespace WinRT.GraphicsCapture
             _captureFramePool = null;
             _captureItem = null;
             IsCapturing = false;
+        }
+
+        // ReSharper disable once SuspiciousTypeConversion.Global
+        private static GraphicsCaptureItem CreateItemForWindow(IntPtr hWnd)
+        {
+            var factory = WindowsRuntimeMarshal.GetActivationFactory(typeof(GraphicsCaptureItem));
+            var interop = (IGraphicsCaptureItemInterop) factory;
+            var pointer = interop.CreateForWindow(hWnd, _graphicsCaptureItemIid);
+            var capture = Marshal.GetObjectForIUnknown(pointer) as GraphicsCaptureItem;
+            Marshal.Release(pointer);
+
+            return capture;
         }
 
         private void CaptureItemOnClosed(GraphicsCaptureItem sender, object args)
