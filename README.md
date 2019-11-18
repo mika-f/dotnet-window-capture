@@ -47,6 +47,20 @@ Captures a window or desktop screen and renders it in WPF or DirectX.
 
 - \*: Require Windows 10 1903 or greater.
 
+### Compare with delay
+
+| Capture Method             | Delay (ms) |
+| -------------------------- | :--------: |
+| `Win32.BitBlt`             |   ~ 20ms   |
+| `Win32.DesktopDuplication` |    N/A     |
+| `Win32.DwmSharedSurface`   |   ~ 20ms   |
+| `Win32.DwmThumbnail`       |  **0ms**   |
+| `WinRT.GraphicsCapture`    |   ~ 40ms   |
+
+- I used [this video](https://www.youtube.com/watch?v=rf2Lmfqi5ZM) to investigate the delay.
+- It is just a reference value, but it is certain that the delay of `Win32.DwmThumbnail` is 0 ms.
+  - This is because it uses a drawing method that is entirely common to other windows.
+
 ## License
 
 This project is licensed under the MIT license.
